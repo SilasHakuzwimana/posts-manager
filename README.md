@@ -141,21 +141,15 @@ flutter clean
 
 Base URL: ```bash https://jsonplaceholder.typicode.com/posts```
 
-```bash
----------------------------------------------------
+
 |Method	|Endpoint	      |Description              |
-|-------------------------------------------------|
+|-------|---------------|-------------------------|
 |GET	  |  /posts	      |Fetch all posts          |
-|-------------------------------------------------|
 |GET	  |  /posts/{id}	|Fetch a single post      |
-|-------------------------------------------------|
-|POST	  |/posts	        |Create a new post        |
-|-------------------------------------------------|
+|POST	  |  /posts	      |Create a new post        |
 |PUT	  |  /posts/{id}	|Update an existing post  |
-|-------------------------------------------------|
-|DELETE|	/posts/{id}	  |Delete a post            |
-|-------------------------------------------------|
-```
+|DELETE |	 /posts/{id}	|Delete a post            |
+
 
 Note: JSONPlaceholder is a mock API. Create/Update/Delete operations return simulated responses and do not persist data.
 
