@@ -164,7 +164,7 @@ class _PostListScreenState extends State<PostListScreen> {
                         color: Color(0xFFFF4757), size: 64),
                     const SizedBox(height: 16),
                     Text(
-                      'Something went wrong',
+                      snapshot.error.toString(),
                       style: GoogleFonts.spaceGrotesk(
                         color: Colors.white,
                         fontSize: 20,
