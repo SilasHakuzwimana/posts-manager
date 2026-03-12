@@ -160,7 +160,8 @@ Screenshots are in [lib/screenshots](https://github.com/SilasHakuzwimana/posts-m
 ## Demo Videos
 
 Demo videos can be found in [lib/demos](https://github.com/SilasHakuzwimana/posts-manager/tree/main/lib/demos)
-Author
+
+## Author
 
 ```bash
 Silas HAKUZWIMANA (223001019)
