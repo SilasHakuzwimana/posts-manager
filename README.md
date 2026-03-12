@@ -61,68 +61,115 @@ Make sure you have the following installed:
 
 ### Installation & Run
 
-```bash
+
 # 1. Clone the repository
+```bash
 git clone https://github.com/SilasHakuzwimana/posts_manager.git
+```
 
 # 2. Navigate into the project
+```bash
 cd posts_manager
+```
 
 # 3. Install dependencies
+
+```bash
 flutter pub get
+```
 
 # 4. Run the app (debug mode)
+```bash
 flutter run
+```
 
 # 5. Run on a specific device
+
+```bash
 flutter run -d <device-id>
+```
 
 # 6. List available devices
+
+```bash
 flutter devices
-Build
+```
+### Build
 # Build APK (Android)
+
+```bash
 flutter build apk --release
+```
 
 # Build App Bundle (Google Play)
-flutter build appbundle --release
 
+```bash
+flutter build appbundle --release
+```
 # Build for iOS
+
+```bash
 flutter build ios --release
-Code Quality
+```
+
+### Code Quality
+
 # Analyze code for issues
+
+```bash
 flutter analyze
+```
 
 # Format all Dart files
-dart format lib/
 
+```bash
+dart format lib/
+```
 # Run tests
+
+```bash
 flutter test
+```
 
 # Clean build artifacts
+
+```bash
 flutter clean
-API Reference
+```
 
-Base URL: https://jsonplaceholder.typicode.com/posts
+## API Reference
 
-Method	Endpoint	Description
-GET	/posts	Fetch all posts
-GET	/posts/{id}	Fetch a single post
-POST	/posts	Create a new post
-PUT	/posts/{id}	Update an existing post
-DELETE	/posts/{id}	Delete a post
+Base URL: ```bash https://jsonplaceholder.typicode.com/posts```
+
+```bash
+---------------------------------------------------
+|Method	|Endpoint	      |Description              |
+|-------------------------------------------------|
+|GET	  |  /posts	      |Fetch all posts          |
+|-------------------------------------------------|
+|GET	  |  /posts/{id}	|Fetch a single post      |
+|-------------------------------------------------|
+|POST	  |/posts	        |Create a new post        |
+|-------------------------------------------------|
+|PUT	  |  /posts/{id}	|Update an existing post  |
+|-------------------------------------------------|
+|DELETE|	/posts/{id}	  |Delete a post            |
+|-------------------------------------------------|
+```
 
 Note: JSONPlaceholder is a mock API. Create/Update/Delete operations return simulated responses and do not persist data.
 
-Screenshots
+## Screenshots
 
 Screenshots are in lib/screenshots
 
-Demo Videos
+## Demo Videos
 
 Demo videos can be found in lib/demos
 
 Author
 
+```bash
 Silas HAKUZWIMANA (223001019)
 Year of study & Department: Year III CSE
 Academic year: 2025-2026
@@ -131,7 +178,9 @@ Module name & lab: Mobile Application Systems & Design — Lab 4
 Institution: UR-CST
 GitHub: @SilasHakuzwimana
 
+```
+
 License
 
 This project is for academic purposes only.
-```
+
