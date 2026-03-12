@@ -1,19 +1,21 @@
+
 # Posts Manager — Flutter Lab 4
 
 > A Flutter mobile application for managing posts via the [JSONPlaceholder](https://jsonplaceholder.typicode.com/) REST API.
 >
-> Built as part of  **Lab 4: Consuming APIs in Flutter** .
+> Built as part of **Lab 4: Consuming APIs in Flutter**.
 
 ## Table of Contents
 
-* [Overview](https://claude.ai/chat/183742e9-6849-4236-816a-a14e5bded8e8#overview)
-* [Features](https://claude.ai/chat/183742e9-6849-4236-816a-a14e5bded8e8#features)
-* [Tech Stack](https://claude.ai/chat/183742e9-6849-4236-816a-a14e5bded8e8#tech-stack)
-* [Project Structure](https://claude.ai/chat/183742e9-6849-4236-816a-a14e5bded8e8#project-structure)
-* [Getting Started](https://claude.ai/chat/183742e9-6849-4236-816a-a14e5bded8e8#getting-started)
-* [API Reference](https://claude.ai/chat/183742e9-6849-4236-816a-a14e5bded8e8#api-reference)
-* [Screenshots](https://claude.ai/chat/183742e9-6849-4236-816a-a14e5bded8e8#screenshots)
-* [Author](https://claude.ai/chat/183742e9-6849-4236-816a-a14e5bded8e8#author)
+* [Overview](#overview)
+* [Features](#features)
+* [Tech Stack](#tech-stack)
+* [Project Structure](#project-structure)
+* [Getting Started](#getting-started)
+* [API Reference](#api-reference)
+* [Screenshots](#screenshots)
+* [Demo Videos](#demo-videos)
+* [Author](#author)
 
 ## Overview
 
@@ -41,21 +43,21 @@ Posts Manager allows staff to **view, create, edit, and delete** posts from a re
 
 ## Project Structure
 
-```
 posts_manager/
-├── lib/
-│   ├── main.dart                    # App entry point & MaterialApp config
-│   ├── models/
-│   │   └── post.dart                # Post data model (fromJson, toJson, copyWith)
-│   ├── services/
-│   │   └── post_service.dart        # API service layer (CRUD + error handling)
-│   └── screens/
-│       ├── post_list_screen.dart    # Home screen — FutureBuilder + ListView
-│       ├── post_detail_screen.dart  # Single post view
-│       └── post_form_screen.dart    # Create / Edit form with validation
-├── pubspec.yaml
-└── README.md
-```
++-- lib/
+| +-- demos/
+¦ +-- main.dart # App entry point & MaterialApp config
+¦ +-- models/
+¦ ¦ +-- post.dart # Post data model (fromJson, toJson, copyWith)
+¦ +-- services/
+¦ ¦ +-- post_service.dart # API service layer (CRUD + error handling)
+| +-- screenshots/
+¦ +-- screens/
+¦ +-- post_list_screen.dart # Home screen — FutureBuilder + ListView
+¦ +-- post_detail_screen.dart # Single post view
+¦ +-- post_form_screen.dart # Create / Edit form with validation
++-- pubspec.yaml
++-- README.md
 
 ## Getting Started
 
@@ -88,11 +90,7 @@ flutter run -d <device-id>
 
 # 6. List available devices
 flutter devices
-```
-
-### Build
-
-```bash
+Build
 # Build APK (Android)
 flutter build apk --release
 
@@ -101,11 +99,7 @@ flutter build appbundle --release
 
 # Build for iOS
 flutter build ios --release
-```
-
-### Code Quality
-
-```bash
+Code Quality
 # Analyze code for issues
 flutter analyze
 
@@ -117,42 +111,38 @@ flutter test
 
 # Clean build artifacts
 flutter clean
-```
+API Reference
 
-## API Reference
+Base URL: https://jsonplaceholder.typicode.com/posts
 
-Base URL: `https://jsonplaceholder.typicode.com/posts`
+Method	Endpoint	Description
+GET	/posts	Fetch all posts
+GET	/posts/{id}	Fetch a single post
+POST	/posts	Create a new post
+PUT	/posts/{id}	Update an existing post
+DELETE	/posts/{id}	Delete a post
 
-| Method     | Endpoint        | Description             |
-| ---------- | --------------- | ----------------------- |
-| `GET`    | `/posts`      | Fetch all posts         |
-| `GET`    | `/posts/{id}` | Fetch a single post     |
-| `POST`   | `/posts`      | Create a new post       |
-| `PUT`    | `/posts/{id}` | Update an existing post |
-| `DELETE` | `/posts/{id}` | Delete a post           |
+Note: JSONPlaceholder is a mock API. Create/Update/Delete operations return simulated responses and do not persist data.
 
-> **Note:** JSONPlaceholder is a mock API. Create/Update/Delete operations return simulated responses and do not persist data.
+Screenshots
 
-## Screenshots
+Screenshots are in lib/screenshots
 
-> Add screenshots here after running the app.
+Demo Videos
 
-| Post List        | Post Detail      | Create / Edit    |
-| ---------------- | ---------------- | ---------------- |
-| *(screenshot)* | *(screenshot)* | *(screenshot)* |
+Demo videos can be found in lib/demos
 
-## Author
+Author
 
-**Silas HAKUZWIMANA(223001019)**
-**Year of study & Department: Year III CSE**
-**Academic year: 2025 -2026**
+Silas HAKUZWIMANA (223001019)
+Year of study & Department: Year III CSE
+Academic year: 2025-2026
 
 Module name & lab: Mobile Application Systems & Design — Lab 4
-
 Institution: UR-CST
+GitHub: @SilasHakuzwimana
 
-GitHub: [@SilasHakuzwimana](https://github.com/SilasHakuzwimana)
-
-## License
+License
 
 This project is for academic purposes only.
+```
