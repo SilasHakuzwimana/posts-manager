@@ -1,4 +1,3 @@
-
 # Posts Manager — Flutter Lab 4
 
 > A Flutter mobile application for managing posts via the [JSONPlaceholder](https://jsonplaceholder.typicode.com/) REST API.
@@ -150,7 +149,7 @@ Mobile App Development — Lab 4
 
 Institution: UR-CST
 
-GitHub: [@S](https://github.com/SilasHakuzwimana)ilasHakuzwimana
+GitHub: [@SilasHakuzwimana](https://github.com/SilasHakuzwimana)
 
 ## License
 
