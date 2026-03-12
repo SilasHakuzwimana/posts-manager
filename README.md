@@ -143,9 +143,9 @@ Base URL: `https://jsonplaceholder.typicode.com/posts`
 
 ## Author
 
-**Your Name**
+**Silas HAKUZWIMANA**
 
-Mobile App Development — Lab 4
+Mobile Application Systems & Design — Lab 4
 
 Institution: UR-CST
 
