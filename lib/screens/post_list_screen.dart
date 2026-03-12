@@ -2,11 +2,239 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../models/post.dart';
+import '../services/post_service.dart';
+import 'post_detail_screen.dart';
+import 'post_form_screen.dart';
 
-class PostDetailScreen extends StatelessWidget {
+class PostListScreen extends StatefulWidget {
+  const PostListScreen({super.key});
+
+  @override
+  State<PostListScreen> createState() => _PostListScreenState();
+}
+
+class _PostListScreenState extends State<PostListScreen> {
+  final PostService _service = PostService();
+  late Future<List<Post>> _postsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPosts();
+  }
+
+  void _loadPosts() {
+    setState(() {
+      _postsFuture = _service.fetchPosts();
+    });
+  }
+
+  Future<void> _deletePost(int id, String title) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: const Color(0xFF1E1E2E),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Text('Delete Post',
+            style: GoogleFonts.spaceGrotesk(
+                color: Colors.white, fontWeight: FontWeight.bold)),
+        content: Text(
+          'Are you sure you want to delete "$title"?',
+          style: GoogleFonts.inter(color: Colors.white70),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child:
+                Text('Cancel', style: GoogleFonts.inter(color: Colors.white54)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFFF4757),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+            ),
+            onPressed: () => Navigator.pop(ctx, true),
+            child:
+                Text('Delete', style: GoogleFonts.inter(color: Colors.white)),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && mounted) {
+      try {
+        await _service.deletePost(id);
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content:
+                  Text('Post deleted successfully', style: GoogleFonts.inter()),
+              backgroundColor: const Color(0xFF2ECC71),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+          _loadPosts();
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error: $e', style: GoogleFonts.inter()),
+              backgroundColor: const Color(0xFFFF4757),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFF0F0F1A),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF0F0F1A),
+        elevation: 0,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Posts Manager',
+              style: GoogleFonts.spaceGrotesk(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 22,
+              ),
+            ),
+            Text(
+              'JSONPlaceholder API',
+              style: GoogleFonts.inter(
+                color: const Color(0xFF6C63FF),
+                fontSize: 12,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh_rounded, color: Colors.white70),
+            onPressed: _loadPosts,
+            tooltip: 'Refresh',
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: const Color(0xFF6C63FF),
+        onPressed: () async {
+          final created = await Navigator.push<bool>(
+            context,
+            MaterialPageRoute(builder: (_) => const PostFormScreen()),
+          );
+          if (created == true) _loadPosts();
+        },
+        icon: const Icon(Icons.add, color: Colors.white),
+        label: Text('New Post',
+            style: GoogleFonts.inter(
+                color: Colors.white, fontWeight: FontWeight.w600)),
+      ),
+      // ── FutureBuilder: the entire list UI depends on this Future ──
+      body: FutureBuilder<List<Post>>(
+        future: _postsFuture,
+        builder: (context, snapshot) {
+          // Waiting state
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Color(0xFF6C63FF),
+              ),
+            );
+          }
+
+          // Error state
+          if (snapshot.hasError) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.wifi_off_rounded,
+                        color: Color(0xFFFF4757), size: 64),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Something went wrong',
+                      style: GoogleFonts.spaceGrotesk(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      '${snapshot.error}',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                          color: Colors.white54, fontSize: 14),
+                    ),
+                    const SizedBox(height: 24),
+                    ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF6C63FF),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                      ),
+                      onPressed: _loadPosts,
+                      icon: const Icon(Icons.refresh, color: Colors.white),
+                      label: Text('Retry',
+                          style: GoogleFonts.inter(color: Colors.white)),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+
+          // Success state
+          final posts = snapshot.data!;
+          return ListView.builder(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 90),
+            itemCount: posts.length,
+            itemBuilder: (context, index) {
+              final post = posts[index];
+              return _PostCard(
+                post: post,
+                onTap: () async {
+                  final edited = await Navigator.push<bool>(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => PostDetailScreen(post: post)),
+                  );
+                  if (edited == true) _loadPosts();
+                },
+                onDelete: () => _deletePost(post.id!, post.title),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _PostCard extends StatelessWidget {
   final Post post;
+  final VoidCallback onTap;
+  final VoidCallback onDelete;
 
-  const PostDetailScreen({super.key, required this.post});
+  const _PostCard({
+    required this.post,
+    required this.onTap,
+    required this.onDelete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,131 +247,71 @@ class PostDetailScreen extends StatelessWidget {
     ];
     final accent = colors[post.id! % colors.length];
 
-    return Scaffold(
-      backgroundColor: const Color(0xFF0F0F1A),
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF0F0F1A),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded,
-              color: Colors.white70, size: 20),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          'Post Details',
-          style: GoogleFonts.spaceGrotesk(
-              color: Colors.white, fontWeight: FontWeight.w600),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.edit_rounded, color: Color(0xFF6C63FF)),
-            onPressed: () async {
-              final edited = await Navigator.push<bool>(
-                context,
-                MaterialPageRoute(builder: (_) => PostFormScreen(post: post)),
-              );
-              if (edited == true && context.mounted) {
-                Navigator.pop(context, true);
-              }
-            },
-          ),
-        ],
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFF1E1E2E),
+        borderRadius: BorderRadius.circular(16),
+        border: Border(left: BorderSide(color: accent, width: 4)),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // ID badge
-            Row(
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: accent.withOpacity(0.15),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: accent.withOpacity(0.4)),
-                  ),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: accent.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
                   child: Text(
-                    'Post #${post.id}',
+                    '#${post.id}',
                     style: GoogleFonts.spaceGrotesk(
-                        color: accent,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13),
+                      color: accent,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
-                const SizedBox(width: 10),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.05),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    'User ${post.userId}',
-                    style:
-                        GoogleFonts.inter(color: Colors.white54, fontSize: 12),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
-
-            // Title
-            Text(
-              'Title',
-              style: GoogleFonts.inter(
-                  color: Colors.white38,
-                  fontSize: 11,
-                  letterSpacing: 1.5,
-                  fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              post.title,
-              style: GoogleFonts.spaceGrotesk(
-                color: Colors.white,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                height: 1.3,
               ),
-            ),
-            const SizedBox(height: 28),
-
-            // Divider
-            Container(height: 1, color: Colors.white.withOpacity(0.06)),
-            const SizedBox(height: 28),
-
-            // Body
-            Text(
-              'Content',
-              style: GoogleFonts.inter(
-                  color: Colors.white38,
-                  fontSize: 11,
-                  letterSpacing: 1.5,
-                  fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(height: 12),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: const Color(0xFF1E1E2E),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.white.withOpacity(0.06)),
-              ),
-              child: Text(
-                post.body,
-                style: GoogleFonts.inter(
-                  color: Colors.white70,
-                  fontSize: 16,
-                  height: 1.8,
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      post.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.spaceGrotesk(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      post.body,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.inter(
+                          color: Colors.white38, fontSize: 12),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
+              IconButton(
+                icon: const Icon(Icons.delete_outline,
+                    color: Color(0xFFFF4757), size: 20),
+                onPressed: onDelete,
+              ),
+            ],
+          ),
         ),
       ),
     );
