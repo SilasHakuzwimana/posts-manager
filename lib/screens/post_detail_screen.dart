@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../models/post.dart';
+import '../screens/post_form_screen.dart';
 
 class PostDetailScreen extends StatelessWidget {
   final Post post;
