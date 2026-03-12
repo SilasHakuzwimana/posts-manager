@@ -144,8 +144,10 @@ Base URL: `https://jsonplaceholder.typicode.com/posts`
 ## Author
 
 **Silas HAKUZWIMANA(223001019)**
+**Year of study & Department: Year III CSE**
+**Academic year: 2025 -2026**
 
-Mobile Application Systems & Design — Lab 4
+Module name & lab: Mobile Application Systems & Design — Lab 4
 
 Institution: UR-CST
 
