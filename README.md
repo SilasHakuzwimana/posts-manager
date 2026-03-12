@@ -155,12 +155,11 @@ Note: JSONPlaceholder is a mock API. Create/Update/Delete operations return simu
 
 ## Screenshots
 
-Screenshots are in [lib/screenshots](github.com/SilasHakuzwimana/posts-manager/tree/main/lib/screenshots)
+Screenshots are in [lib/screenshots](https://github.com/SilasHakuzwimana/posts-manager/tree/main/lib/screenshots)
 
 ## Demo Videos
 
-Demo videos can be found in [lib/demos](github.com/SilasHakuzwimana/posts-manager/tree/main/lib/demos)
-
+Demo videos can be found in [lib/demos](https://github.com/SilasHakuzwimana/posts-manager/tree/main/lib/demos)
 Author
 
 ```bash
