@@ -43,21 +43,10 @@ Posts Manager allows staff to **view, create, edit, and delete** posts from a re
 
 ## Project Structure
 
-posts_manager/
-+-- lib/
-¦ +-- demos/ # Demo videos
-¦ +-- main.dart # App entry point & MaterialApp config
-¦ +-- models/
-¦ ¦ +-- post.dart # Post data model (fromJson, toJson, copyWith)
-¦ +-- services/
-¦ ¦ +-- post_service.dart # API service layer (CRUD + error handling)
-¦ +-- screenshots/ # App screenshots
-¦ +-- screens/
-¦ +-- post_list_screen.dart # Home screen — FutureBuilder + ListView
-¦ +-- post_detail_screen.dart # Single post view
-¦ +-- post_form_screen.dart # Create / Edit form with validation
-+-- pubspec.yaml # Flutter dependencies
-+-- README.md # Project documentation
+<img width="223" height="356" alt="image" src="https://github.com/user-attachments/assets/a67b9c28-2d35-41a5-a468-af6f955bf403" />
+
+<img width="680" height="668" alt="image" src="https://github.com/user-attachments/assets/bb3630e9-3b0e-4625-8a6e-8c600ffc93a3" />
+
 
 ## Getting Started
 
