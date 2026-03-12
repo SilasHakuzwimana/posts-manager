@@ -112,7 +112,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Title field
-              _FieldLabel(label: 'TITLE'),
+              const _FieldLabel(label: 'TITLE'),
               const SizedBox(height: 8),
               _StyledTextField(
                 controller: _titleController,
@@ -131,7 +131,7 @@ class _PostFormScreenState extends State<PostFormScreen> {
               const SizedBox(height: 24),
 
               // Body field
-              _FieldLabel(label: 'CONTENT'),
+              const _FieldLabel(label: 'CONTENT'),
               const SizedBox(height: 8),
               _StyledTextField(
                 controller: _bodyController,
