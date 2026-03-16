@@ -170,8 +170,8 @@ Academic year: 2025-2026
 
 Module name & lab: Mobile Application Systems & Design — Lab 4
 Institution: UR-CST
-GitHub: @SilasHakuzwimana
-
+GitHub: [@SilasHakuzwimana](https://github.com/SilasHakuzwimana)
+```
 ```
 
 License
